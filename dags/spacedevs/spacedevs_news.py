@@ -17,7 +17,7 @@ def fetch_spacedevs_news(category: str, data_interval_start: pendulum.datetime, 
     import urllib.parse
     start_encoded = urllib.parse.quote(start)
     end_encoded = urllib.parse.quote(end)
-    endpoint = f"{category}?updated_at_gte={start_encoded}&updated_at_lt={end_encoded}"
+    endpoint = f"{category}?updated_at_gte={start_encoded}&updated_at_lt={end_encoded}&limit=1000"
     logging.info(f"Fetching data from endpoint: {endpoint}")
     try:
         response = http_hook.run(endpoint)
@@ -35,12 +35,12 @@ def fetch_spacedevs_news(category: str, data_interval_start: pendulum.datetime, 
 
 @dag(
     dag_id="spacedevs_news",
-    schedule=DeltaDataIntervalTimetable(delta=pendulum.duration(hours=1)),
-    start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
+    schedule=DeltaDataIntervalTimetable(delta=pendulum.duration(days=1)),
+    start_date=pendulum.datetime(2021, 5, 1, tz="UTC"),
     catchup=True,
     tags=["space", "news"],
     max_active_runs=1,
-    max_active_tasks=16,
+    max_active_tasks=4,
     default_args={
         "retries": 3,
         "retry_delay": pendulum.duration(minutes=5),
