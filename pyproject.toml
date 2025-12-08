@@ -10,6 +10,9 @@ dependencies = [
     "asyncio>=4.0.0",
     "jupyter-core>=5.9.1",
     "jupyterlab>=4.5.0",
+    "marimo>=0.18.3",
     "pandas>=2.3.3",
     "polars[pandas]>=1.35.2",
+    "pyarrow>=22.0.0",
+    "pyiceberg>=0.10.0",
 ]
