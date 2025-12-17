@@ -65,7 +65,7 @@ async fn main() -> Result<()> {
             let response = reqwest::get(&url).await?;
             let body = response.json::<serde_json::Value>().await?;
             let results = body["results"].as_array().unwrap();
-    
+            // Making a comment
             
             if let Some(path) = output {
                 println!("Saving to: {}", &path);
