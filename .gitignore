@@ -9,3 +9,11 @@ wheels/
 # Virtual environments
 .venv
 logs/
+
+# OS environment
+.env
+
+# AI helpers
+.aider*
+.aider/
+.env

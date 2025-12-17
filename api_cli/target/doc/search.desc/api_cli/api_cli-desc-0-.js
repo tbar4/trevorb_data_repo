@@ -1,0 +1,1 @@
+searchState.loadedDescShard("api_cli", 0, "Fetch data from Spaceflight News API\nReturns the argument unchanged.\nReturns the argument unchanged.\nCalls <code>U::from(self)</code>.\nCalls <code>U::from(self)</code>.\nEndpoint to fetch data from\nOutput file path")
