@@ -1,8 +1,10 @@
 use anyhow::Result;
 use clap::Parser;
 use reqwest;
-use tokio;
+use serde_json::Value;
 use std::io::Write;
+use std::path::Path;
+use tokio;
 
 #[derive(Debug, Parser)]
 #[clap(name = "api_cli", about = "A CLI tool for API operations")]
@@ -20,13 +22,23 @@ enum Commands {
         endpoint: String,
 
         /// Query Params for Endpoint
-        #[clap(short, long, value_delimiter=',', value_parser=parse_key_value)]
+        #[clap(short, long, value_delimiter = ',', value_parser = parse_key_value)]
         params: Option<Vec<(String, String)>>,
 
         /// Output file path
         #[clap(short, long)]
         output: Option<String>,
     },
+}
+
+#[derive(Debug, thiserror::Error)]
+enum ApiError {
+    #[error("API request failed: {0}")]
+    RequestError(String),
+    #[error("Failed to parse JSON response: {0}")]
+    JsonParseError(String),
+    #[error("Invalid output path: {0}")]
+    OutputPathError(String),
 }
 
 fn parse_key_value(s: &str) -> Result<(String, String), String> {
@@ -44,52 +56,72 @@ async fn main() -> Result<()> {
             endpoint,
             params,
             output,
-        } => {
-            // Build URL with query parameters
-            let url = if let Some(params) = params {
-                let mut query_params = String::new();
-                for (i, (key, value)) in params.iter().enumerate() {
-                    if i > 0 {
-                        query_params.push('&');
-                    }
-                    query_params.push_str(&format!("{}={}", key, value));
-                }
-                format!("{}?{}", endpoint, query_params)
-            } else {
-                endpoint
-            };
+        } => fetch_data(&endpoint, params.as_deref(), output.as_deref()).await?,
+    }
 
-            println!("Fetching data from endpoint: {}", url);
+    Ok(())
+}
 
-            // Make HTTP request
-            let response = reqwest::get(&url).await?;
-            let body = response.json::<serde_json::Value>().await?;
-            let results = body["results"].as_array().unwrap();
-    
-            
-            if let Some(path) = output {
-                println!("Saving to: {}", &path);
-                let path_ref = std::path::Path::new(&path);
-                if path_ref.exists() {
-                    println!("File already exists...\nOverwriting...");
-                    let mut file = std::fs::OpenOptions::new()
-                            .create(true)        // Create file if it doesn't exist
-                            .append(true)        // Open in append mode
-                            .open(&path)?;
-                    for j in results.iter() {
-                        let jp = serde_json::to_string_pretty(j)?;
-                        println!("{file:?}");
-                        writeln!(file, "{}", jp)?;
-                    }
-                } else {
-                    tokio::fs::File::create(path_ref).await?;
-                    //tokio::task::spawn_blocking(move || fs::write(&path, &json)).await??;
-                }
-            } else {
-                println!("{}", body);
-            }
+async fn fetch_data(
+    endpoint: &str,
+    params: Option<&[(String, String)]>,
+    output: Option<&str>,
+) -> Result<()> {
+    // Build URL with query parameters
+    let url = build_url(endpoint, params)?;
+    println!("Fetching data from endpoint: {}", url);
+
+    // Make HTTP request
+    let response = reqwest::get(&url).await?;
+
+    if !response.status().is_success() {
+        return Err(ApiError::RequestError(format!(
+            "HTTP request failed with status: {}",
+            response.status()
+        ))
+        .into());
+    }
+
+    let body: Value = response.json().await?;
+    handle_response(body, output).await
+}
+
+fn build_url(endpoint: &str, params: Option<&[(String, String)]>) -> Result<String> {
+    let mut url = reqwest::Url::parse(endpoint)
+        .map_err(|e| ApiError::RequestError(format!("Invalid URL: {}", e)))?;
+
+    if let Some(params) = params {
+        for (key, value) in params {
+            url.query_pairs_mut().append_pair(key, value);
         }
     }
 
+    Ok(url.to_string())
+}
+
+async fn handle_response(body: Value, output: Option<&str>) -> Result<()> {
+    if let Some(path) = output {
+        save_to_file(&body, path).await?;
+        println!("Data saved to: {}", path);
+    } else {
+        println!("{}", serde_json::to_string_pretty(&body)?);
+    }
+    Ok(())
+}
+
+async fn save_to_file(body: &Value, path: &str) -> Result<()> {
+    let path_ref = Path::new(path);
+    
+    // Create parent directories if they don't exist
+    if let Some(parent) = path_ref.parent() {
+        tokio::fs::create_dir_all(parent).await?;
+    }
+    
+    // Convert JSON to string
+    let json_string = serde_json::to_string_pretty(body)?;
+    
+    // Write to file
+    tokio::fs::write(path_ref, json_string).await?;
+    
     Ok(())
 }
