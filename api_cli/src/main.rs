@@ -1,7 +1,6 @@
 use anyhow::Result;
 use clap::Parser;
 use reqwest;
-use std::fs;
 use tokio;
 use std::io::Write;
 
