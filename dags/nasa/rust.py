@@ -30,8 +30,6 @@ with DAG(
 ) as dag:
 
     # Task to run the Docker container
-    # Note: For this to work, the Docker socket must be mounted when running Airflow in Docker:
-    # docker run ... -v /var/run/docker.sock:/var/run/docker.sock ...
     run_docker_container = DockerOperator(
         task_id='run_test_docker_airflow',
         image='rust_airflow_hello:latest',
@@ -41,12 +39,9 @@ with DAG(
         docker_url='unix://var/run/docker.sock',
         network_mode='bridge',
         mount_tmp_dir=False,
-        # Pass date information as environment variables
         environment={
-            'EXECUTION_DATE': '{{ ds }}',  # execution date in YYYY-MM-DD format
-            'DAG_RUN_ID': '{{ run_id }}',  # DAG run ID
+            'EXECUTION_DATE': '{{ ds }}',
+            'DAG_RUN_ID': '{{ run_id }}',
         },
         dag=dag,
-    )    
-    # Set log level for this specific task
-    # run_docker_container - task objects don't have setLevel() method
+    )

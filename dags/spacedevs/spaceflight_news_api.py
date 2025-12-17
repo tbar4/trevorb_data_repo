@@ -19,11 +19,9 @@ def fetch_and_save_data(**context):
     data_interval_end = context['data_interval_end'].isoformat()
     ds_nodash = context['ds_nodash']
     
-    # Create directory if it doesn't exist
     dataset_dir = f"/tmp/{endpoint}"
     os.makedirs(dataset_dir, exist_ok=True)
     
-    # Fetch data from API
     response = requests.get(
         f"{API}{endpoint}/",
         params={
@@ -39,7 +37,6 @@ def fetch_and_save_data(**context):
     
     data = response.json()["results"]
     
-    # Extract content from each article URL
     for article in data:
         if 'url' in article:
             try:
@@ -49,7 +46,6 @@ def fetch_and_save_data(**context):
                 print(f"Failed to extract content from {article['url']}: {e}")
                 article['content'] = ""
     
-    # Save to local file
     file_path = f"{dataset_dir}/{endpoint}_{ds_nodash}.json"
     with open(file_path, 'w') as f:
         json.dump(data, f)
@@ -66,7 +62,6 @@ def extract_article_content(article_url: str) -> str:
         
         soup = BeautifulSoup(response.content, 'html.parser')
         
-        # Try to find the main content div - this may need adjustment based on the actual site structure
         content_div = soup.find('div', class_='article-content')
         if not content_div:
             content_div = soup.find('div', class_='content')
@@ -76,12 +71,10 @@ def extract_article_content(article_url: str) -> str:
             content_div = soup.find('main')
             
         if not content_div:
-            # If we can't find a specific content div, try to get all paragraphs
             paragraphs = soup.find_all('p')
         else:
             paragraphs = content_div.find_all('p')
             
-        # Extract text from paragraphs
         article_text = "\n".join(p.get_text().strip() for p in paragraphs if p.get_text().strip())
         
         return article_text
@@ -95,12 +88,10 @@ def upload_to_s3(**context):
     ds_nodash = context['ds_nodash']
     file_path = f"/tmp/{endpoint}/{endpoint}_{ds_nodash}.json"
     
-    # Check if file exists
     if not os.path.exists(file_path):
         print(f"File {file_path} not found, skipping upload")
         return
     
-    # Upload to S3
     s3_hook = S3Hook(aws_conn_id='minio_s3')
     s3_key = f"spaceflight_news/{endpoint}/{endpoint}_{ds_nodash}.json"
     
@@ -134,7 +125,6 @@ def create_dataset_tasks(dataset_name: str, dag: DAG):
     
     return task_group
 
-# Define the DAG
 with DAG(
     dag_id="spacedevs_news",
     schedule=DeltaDataIntervalTimetable(delta=pendulum.duration(days=1)),
@@ -151,7 +141,6 @@ with DAG(
     },
 ) as dag:
     
-    # Create task groups for each dataset
     articles_group = create_dataset_tasks("articles", dag)
     blogs_group = create_dataset_tasks("blogs", dag)
     reports_group = create_dataset_tasks("reports", dag)
