@@ -17,3 +17,5 @@ logs/
 .aider*
 .aider/
 .env
+.vscode
+target/
