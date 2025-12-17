@@ -6,21 +6,31 @@
 
 <!--toc:end-->
 
-This is a containerized Rust application that takes inputs for REST API extraction and writes it to a file.
+This is a containerized Rust application designed to leverage the speed of Rust, the portability of Docker, and the orchestration capabilities of Apache Airflow. The CLI tool is built to perform efficient data extraction from REST APIs and can be easily deployed as Docker containers within Airflow DAGs for complex task scheduling.
 
-Features:
+## Why This Architecture?
+
+This project takes advantage of three key technologies:
+
+1. **Rust**: For maximum performance and memory safety when processing large amounts of data
+2. **Docker**: For consistent, portable deployments across different environments
+3. **Airflow**: For sophisticated workflow orchestration and scheduling capabilities
+
+By combining these technologies, we can create highly efficient, reliable, and scalable data pipelines.
+
+## Features
 
 - _Extraction_
-  - [ ] REST API
-    - [ ] Query Params
+  - [x] REST API
+    - [x] Query Params
     - [ ] Custom Headers
     - [ ] Basic Auth
     - [ ] Bearer Tokens
-    - [ ] Timeout retry
+    - [x] Timeout retry
 - _Transform_
   - [ ] TBD
 - _Load_
-  - [ ] Write to local file system
+  - [x] Write to local file system
   - [ ] Write to Object Store
     - [ ] S3
     - [ ] Minio
