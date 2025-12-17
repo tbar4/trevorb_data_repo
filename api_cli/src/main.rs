@@ -15,7 +15,7 @@ enum Commands {
         /// Endpoint to fetch data from
         #[clap(short, long)]
         endpoint: String,
-        
+
         /// Output file path
         #[clap(short, long)]
         output: Option<String>,
@@ -25,7 +25,7 @@ enum Commands {
 #[tokio::main]
 async fn main() -> Result<()> {
     let cli = Cli::parse();
-    
+
     match cli.command {
         Commands::Fetch { endpoint, output } => {
             println!("Fetching data from endpoint: {}", endpoint);
@@ -34,6 +34,6 @@ async fn main() -> Result<()> {
             }
         }
     }
-    
+
     Ok(())
 }
