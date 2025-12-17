@@ -1,5 +1,11 @@
 # API CLI for Airflow
 
+<!--toc:start-->
+
+- [API CLI for Airflow](#api-cli-for-airflow)
+
+<!--toc:end-->
+
 This is a containerized Rust application that takes inputs for REST API extraction and writes it to a file.
 
 Features:
