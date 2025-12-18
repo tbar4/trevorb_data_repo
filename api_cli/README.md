@@ -6,6 +6,8 @@
 
 <!--toc:end-->
 
+## Overview
+
 This is a containerized Rust application designed to leverage the speed of Rust, the portability of Docker, and the orchestration capabilities of Apache Airflow. The CLI tool is built to perform efficient data extraction from REST APIs and can be easily deployed as Docker containers within Airflow DAGs for complex task scheduling.
 
 ## Why This Architecture?
@@ -30,6 +32,7 @@ By combining these technologies, we can create highly efficient, reliable, and s
 - _Transform_
   - [ ] TBD
 - _Load_
+  - [ ] DAL
   - [x] Write to local file system
   - [ ] Write to Object Store
     - [ ] S3
