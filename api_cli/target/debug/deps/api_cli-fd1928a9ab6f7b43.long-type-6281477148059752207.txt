@@ -1,1 +1,0 @@
-fn(_) -> impl Future<Output = Result<tokio::fs::File, std::io::Error>> {tokio::fs::File::create::<_>}
