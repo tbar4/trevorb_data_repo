@@ -56,8 +56,9 @@ async fn main() -> Result<()> {
             endpoint,
             params,
             output,
-        } => fetch_data(&endpoint, params.as_deref(), output.as_deref()).await?,
+        } => fetch_data(&endpoint, params.as_deref(), output.as_deref()).await?
     }
+
 
     Ok(())
 }
