@@ -1,9 +1,12 @@
 use anyhow::Result;
 use clap::Parser;
-use tokio;
 mod extractor;
 mod utils;
-use extractor::api::fetch_data;
+use extractor::api::ApiClient;
+use extractor::loader::{DataSink, LoaderType, LocalSink, S3Sink, SqliteSink, PostgresSink};
+use utils::error::parse_key_value;
+
+
 
 #[derive(Debug, Parser)]
 #[clap(name = "api_cli", about = "A CLI tool for API operations")]
@@ -16,6 +19,10 @@ struct Cli {
 enum Commands {
     /// Fetch data from Spaceflight News API
     Fetch {
+        /// Base URL for the API
+        #[clap(long, default_value = "https://api.spaceflightnewsapi.net/v4")]
+        base_url: String,
+        
         /// Endpoint to fetch data from
         #[clap(short, long)]
         endpoint: String,
@@ -24,16 +31,22 @@ enum Commands {
         #[clap(short, long, value_delimiter = ',', value_parser = parse_key_value)]
         params: Option<Vec<(String, String)>>,
 
-        /// Output file path
-        #[clap(short, long)]
-        output: Option<String>,
-    },
-}
+        /// Output destination type (local, s3, sqlite, postgres)
+        #[clap(long, value_enum, default_value = "local")]
+        output_type: LoaderType,
 
-fn parse_key_value(s: &str) -> Result<(String, String), String> {
-    s.split_once('=')
-        .map(|(k, v)| (k.to_string(), v.to_string()))
-        .ok_or_else(|| format!("Invalid format {}, expected KEY=VALUE", s))
+        /// Connection string or path for the output destination
+        #[clap(long)]
+        output_destination: Option<String>,
+
+        /// Table name for database outputs
+        #[clap(long)]
+        table_name: Option<String>,
+
+        /// Output file path or key (for local/S3)
+        #[clap(short, long)]
+        sink: Option<String>,
+    },
 }
 
 #[tokio::main]
@@ -42,10 +55,48 @@ async fn main() -> Result<()> {
 
     match cli.command {
         Commands::Fetch {
+            base_url,
             endpoint,
             params,
-            output,
-        } => fetch_data(&endpoint, params.as_deref(), output.as_deref()).await?
+            output_type,
+            output_destination,
+            table_name: _,
+            sink,
+        } => {
+            // Create the appropriate data sink based on the output type
+            let data_sink = match output_type {
+                LoaderType::Local => {
+                    Some(DataSink::Local(LocalSink))
+                },
+                LoaderType::S3 => {
+                    if let Some(bucket) = &output_destination {
+                        Some(DataSink::S3(S3Sink::new(bucket.clone())))
+                    } else {
+                        println!("S3 bucket name required for S3 output");
+                        None
+                    }
+                },
+                LoaderType::Sqlite => {
+                    if let Some(connection_string) = &output_destination {
+                        Some(DataSink::Sqlite(SqliteSink::new(connection_string.clone())))
+                    } else {
+                        println!("SQLite connection string required for SQLite output");
+                        None
+                    }
+                },
+                LoaderType::Postgres => {
+                    if let Some(connection_string) = &output_destination {
+                        Some(DataSink::Postgres(PostgresSink::new(connection_string.clone())))
+                    } else {
+                        println!("PostgreSQL connection string required for PostgreSQL output");
+                        None
+                    }
+                },
+            };
+
+            let client = ApiClient::new(base_url);
+            client.fetch_data(&endpoint, params.as_deref(), sink.as_deref(), data_sink.as_ref()).await?
+        }
     }
 
 

@@ -1,0 +1,197 @@
+{
+  "count": 164,
+  "next": "https://api.spaceflightnewsapi.net/v4/articles/?limit=10&offset=10&ordering=-updated_at&updated_at_gte=2025-12-15",
+  "previous": null,
+  "results": [
+    {
+      "authors": [
+        {
+          "name": "European Spaceflight",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34897,
+      "image_url": "https://europeanspaceflight.com/wp-content/uploads/2025/12/ICEYE-and-Rheinmetall-Win-1.7-Billion-Euro-German-Armed-Forces-Contract.webp",
+      "launches": [],
+      "news_site": "European Spaceflight",
+      "published_at": "2025-12-19T05:00:45Z",
+      "summary": "The German Armed Forces have awarded a €1.7 billion contract to Rheinmetall and ICEYE for the delivery of space-based reconnaissance data through exclusive access to a synthetic aperture radar (SAR) satellite constellation. On 7 November 2025, German technology group Rheinmetall and Finnish satellite manufacturer and Earth observation data provider ICEYE announced a joint venture called […]\nThe post ICEYE and Rheinmetall Win €1.7 Billion German Armed Forces Contract appeared first on European Spaceflight.",
+      "title": "ICEYE and Rheinmetall Win €1.7 Billion German Armed Forces Contract",
+      "updated_at": "2025-12-19T05:10:12.258977Z",
+      "url": "https://europeanspaceflight.com/iceye-and-rheinmetall-win-e1-7-billion-german-armed-forces-contract/"
+    },
+    {
+      "authors": [
+        {
+          "name": "NASA",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34896,
+      "image_url": "https://images-assets.nasa.gov/image/iss050e058812/iss050e058812~large.jpg",
+      "launches": [],
+      "news_site": "NASA",
+      "published_at": "2025-12-19T04:00:00Z",
+      "summary": "NASA opens the International Space Station for scientists and researchers, inviting them to use the benefits of microgravity for private industry research, technology demonstrations, and more. Today, half of the crew’s time aboard station is devoted to these aims, including medical research that addresses complex health challenges on Earth and prepares astronauts for future deep […]",
+      "title": "Space Station Research Supports New FDA-Approved Cancer Therapy",
+      "updated_at": "2025-12-19T04:10:07.164283Z",
+      "url": "https://www.nasa.gov/missions/station/iss-research/space-station-research-supports-new-fda-approved-cancer-therapy/"
+    },
+    {
+      "authors": [
+        {
+          "name": "Marcia Smith",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34895,
+      "image_url": "https://spacepolicyonline.com/wp-content/uploads/2025/12/Trump-revoke-Sp-Cncl-300x33.png",
+      "launches": [],
+      "news_site": "SpacePolicyOnline.com",
+      "published_at": "2025-12-19T02:50:13Z",
+      "summary": "President Trump issued a new Executive Order today aimed at ensuring U.S. space superiority. The order covers all three sectors — civil, national security, and commercial — and comes on […]",
+      "title": "Trump Issues Executive Order to Ensure U.S. Space Superiority",
+      "updated_at": "2025-12-19T02:50:19.553259Z",
+      "url": "https://spacepolicyonline.com/news/trump-issues-executive-order-to-ensure-u-s-space-superiority/"
+    },
+    {
+      "authors": [
+        {
+          "name": "NASA",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34894,
+      "image_url": "https://assets.science.nasa.gov/dynamicimage/assets/science/missions/msl/2025/curiosity-rover-updates/december/https___mars.nasa.gov_msl-raw-images_msss_04745_mhli_4745MH0001900011703035C00_DXXX.jpg",
+      "launches": [],
+      "news_site": "NASA",
+      "published_at": "2025-12-19T01:30:38Z",
+      "summary": "Written by Lucy Lim, Planetary Scientist at NASA’s Goddard Space Flight Center Earth Planning Date: Friday, Dec. 12, 2025 The weekend drive starting from the “Nevado Sajama” drill site brought Curiosity back into the “Monte Grande” boxwork hollow. We’ve been in this hollow before for the “Valle de la Luna” drill campaign, but now that […]",
+      "title": "Curiosity Blog, Sols 4743-4749:  Polygons in the Hollow",
+      "updated_at": "2025-12-19T02:10:07.216169Z",
+      "url": "https://science.nasa.gov/blog/curiosity-blog-sols-4743-4749-polygons-in-the-hollow/"
+    },
+    {
+      "authors": [
+        {
+          "name": "SpaceDaily",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34893,
+      "image_url": "https://www.spxdaily.com/images-bg/futuristic-smart-digital-data-ai-urban-cityscape-man-bg.jpg",
+      "launches": [],
+      "news_site": "SpaceDaily",
+      "published_at": "2025-12-19T01:51:15Z",
+      "summary": "Los Angeles CA (SPX) Dec 18, 2025\n\nThe selection of a web testing framework may at times not be very easy. In fact, with so many tools that claim to speed up your testing process, it often comes down to which tool best fits your team's skill sets, project scope, and long-term testing objectives. Whether you're a QA manager, SDET, tester, or engineer, you want a framework that supports quality and grows with your development process",
+      "title": "How to pick the right web testing framework for your project",
+      "updated_at": "2025-12-19T00:40:25.582936Z",
+      "url": "https://www.spacedaily.com/reports/How_to_pick_the_right_web_testing_framework_for_your_project_999.html"
+    },
+    {
+      "authors": [
+        {
+          "name": "SpaceDaily",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34892,
+      "image_url": "https://www.spxdaily.com/images-bg/china-sun-rocket-launch-silhouette-long-march-2f-shenzhou-22-bg.jpg",
+      "launches": [],
+      "news_site": "SpaceDaily",
+      "published_at": "2025-12-19T01:51:15Z",
+      "summary": "Gerroa, Australia (SPX) Dec 19, 2025\n\nFusion is the cosmic process that powers stars, shapes galaxies, and enables the chemical diversity needed for life. From the earliest stars to modern planetary systems, fusion converts hydrogen into heavier elements, forging the matter that makes up worlds, atmospheres, and living organisms. The Sun's steady fusion output governs Earth's climate and underlies all biological and technological energy flows, from photosynthesis to fossil fuels.",
+      "title": "The Quantum Age will be Powered by Fusion",
+      "updated_at": "2025-12-19T00:40:25.501419Z",
+      "url": "https://www.energy-daily.com/reports/The_Quantum_Age_will_be_Powered_by_Fusion_999.html"
+    },
+    {
+      "authors": [
+        {
+          "name": "Richard DalBello",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34891,
+      "image_url": "https://i0.wp.com/spacenews.com/wp-content/uploads/2023/09/space-situational-awareness-ESA-scaled.jpg?fit=1024%2C533&ssl=1",
+      "launches": [],
+      "news_site": "SpaceNews",
+      "published_at": "2025-12-18T23:15:31Z",
+      "summary": "\nA recently issued Executive Order revises how the government implements Space Policy Directive-3, removing the longstanding expectation that basic space situational awareness (SSA) services, including conjunction warnings, would be provided without charge. This decision marks a departure not only from SPD-3, but from more than a decade of United States practice in which Congress and […]\nThe post What problem is charging for Space Situational Awareness supposed to solve? appeared first on SpaceNews.",
+      "title": "What problem is charging for Space Situational Awareness supposed to solve?",
+      "updated_at": "2025-12-18T23:20:24.982102Z",
+      "url": "https://spacenews.com/what-problem-is-charging-for-space-situational-awareness-supposed-to-solve/"
+    },
+    {
+      "authors": [
+        {
+          "name": "Jeff Foust and Sandra Erwin",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34890,
+      "image_url": "https://i0.wp.com/spacenews.com/wp-content/uploads/2025/12/P202512002DT-0230.jpg-scaled.webp?fit=1024%2C683&ssl=1",
+      "launches": [],
+      "news_site": "SpaceNews",
+      "published_at": "2025-12-18T23:15:58Z",
+      "summary": "\nThe White House issued a sweeping executive order on space policy Dec. 18 covering topics from NASA’s exploration plans to space security.\nThe post Trump signs sweeping executive order to assert U.S. dominance in space appeared first on SpaceNews.",
+      "title": "Trump signs sweeping executive order to assert U.S. dominance in space",
+      "updated_at": "2025-12-18T23:20:24.962529Z",
+      "url": "https://spacenews.com/trump-signs-sweeping-executive-order-to-assert-u-s-dominance-in-space/"
+    },
+    {
+      "authors": [
+        {
+          "name": "Eric Berger",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34889,
+      "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2025/12/54992620409_811a1c4713_c.jpg",
+      "launches": [],
+      "news_site": "Arstechnica",
+      "published_at": "2025-12-18T23:05:42Z",
+      "summary": "Also, the Trump administration wants to put some nuclear power reactors there, too.",
+      "title": "Trump commits to Moon landing by 2028, followed by a lunar outpost two years later",
+      "updated_at": "2025-12-18T23:10:03.988951Z",
+      "url": "https://arstechnica.com/space/2025/12/trump-commits-to-moon-landing-by-2028-followed-by-a-lunar-outpost-two-years-later/"
+    },
+    {
+      "authors": [
+        {
+          "name": "NASA",
+          "socials": null
+        }
+      ],
+      "events": [],
+      "featured": false,
+      "id": 34888,
+      "image_url": "https://www.nasa.gov/wp-content/uploads/2025/12/edm-linkedin-x-1200x675px.png",
+      "launches": [],
+      "news_site": "NASA",
+      "published_at": "2025-12-18T21:52:17Z",
+      "summary": "Whose Moon Mascot design will join the Artemis II astronauts on their historic voyage around the Moon in early 2026? Between March 7 and Jun. 16, 2025, NASA worked with crowdsourcing company Freelancer to seek design ideas from global creators for a zero gravity indicator that will fly aboard the agency’s Artemis II test flight. Zero gravity […]",
+      "title": "Moon Mascot: NASA Artemis II ZGI Design Challenge",
+      "updated_at": "2025-12-18T22:00:10.138415Z",
+      "url": "https://www.nasa.gov/general/moonmascot/"
+    }
+  ]
+}
