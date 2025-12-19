@@ -5,6 +5,7 @@ mod utils;
 use extractor::api::ApiClient;
 use extractor::loader::{DataSink, LoaderType, LocalSink, S3Sink, SqliteSink, PostgresSink};
 use utils::error::parse_key_value;
+use utils::env_loader::load_env;
 
 
 
@@ -51,6 +52,9 @@ enum Commands {
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    // Load environment variables from .env file
+    load_env()?;
+
     let cli = Cli::parse();
 
     match cli.command {

@@ -1,6 +1,7 @@
 use clap::ValueEnum;
 use serde_json::Value;
 use anyhow::Result;
+use std::env;
 
 #[derive(Debug, Clone, ValueEnum)]
 pub enum LoaderType {
@@ -49,17 +50,20 @@ impl LocalSink {
 #[derive(Debug)]
 pub struct S3Sink {
     bucket: String,
+    region: String,
 }
 
 impl S3Sink {
     pub fn new(bucket: String) -> Self {
-        Self { bucket }
+        // Get region from environment variable or use default
+        let region = env::var("S3_REGION").unwrap_or_else(|_| "us-east-1".to_string());
+        Self { bucket, region }
     }
 
     pub async fn save(&self, _data: &Value, path: Option<&str>) -> Result<()> {
         if let Some(key) = path {
             // Implementation for saving to S3
-            println!("Saving data to S3 bucket: {}, key: {}", self.bucket, key);
+            println!("Saving data to S3 bucket: {}, region: {}, key: {}", self.bucket, self.region, key);
             // S3 saving logic would go here
             Ok(())
         } else {
@@ -82,7 +86,7 @@ impl SqliteSink {
     pub async fn save(&self, _data: &Value, table: Option<&str>) -> Result<()> {
         if let Some(table_name) = table {
             // Implementation for saving to SQLite
-            println!("Saving data to SQLite table: {}", table_name);
+            println!("Saving data to SQLite database: {}, table: {}", self.connection_string, table_name);
             // SQLite saving logic would go here
             Ok(())
         } else {
@@ -105,7 +109,7 @@ impl PostgresSink {
     pub async fn save(&self, _data: &Value, table: Option<&str>) -> Result<()> {
         if let Some(table_name) = table {
             // Implementation for saving to PostgreSQL
-            println!("Saving data to PostgreSQL table: {}", table_name);
+            println!("Saving data to PostgreSQL database: {}, table: {}", self.connection_string, table_name);
             // PostgreSQL saving logic would go here
             Ok(())
         } else {
